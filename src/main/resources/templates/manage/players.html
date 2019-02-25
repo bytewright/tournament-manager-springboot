@@ -17,8 +17,15 @@
     <h3 class="display-3">Player Management</h3>
 
     <div id="contents-main">
-        <div id="contentAdd">
+        <div th:if="${!isEdit}" id="contentAdd">
             <!--/*@thymesVar id="player" type="org.bytewright.springbootvue.jpa.entities.Player"*/-->
+            <form th:action="@{'/manage/players/add'}" method="POST" th:object="${player}">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required="true" th:placeholder="*{name}" th:value="*{name}"
+                       th:field="*{name}"/>
+            </form>
+        </div>
+        <div th:if="${isEdit}" id="contenEdit">
             <form th:action="@{'/manage/players/add'}" method="POST" th:object="${player}">
                 <label for="name">Name:</label>
                 <input type="text" id="name" required="true" th:placeholder="*{name}" th:value="*{name}"
