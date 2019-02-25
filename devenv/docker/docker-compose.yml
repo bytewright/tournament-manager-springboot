@@ -1,0 +1,66 @@
+version: '3'
+services:
+  phpmyadmin:
+    container_name: "phpmyadmin"
+    image: "phpmyadmin/phpmyadmin:4.7"
+    restart: always
+    ports:
+      - 8080:80
+    links:
+      - mysql:db
+    environment:
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+      - PMA_HOST=db
+      - PMA_PORT=3306
+
+  mysql:
+    container_name: "mysql"
+    # v8 geht noch nicht mit phpmyadmin as of 2018-05-11
+    image: "mysql:5.7"
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_DATABASE=sandbox
+     - MYSQL_USER=bytewright
+     - MYSQL_PASSWORD=bytewright
+    ports:
+     - "3306:3306"
+
+  mongodb:
+    container_name: "mongodb"
+    image: "mongo:3.6"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+     - "27017:27017"
+
+  redis:
+    container_name: "redis"
+    image: "redis:4"
+    restart: always
+    ports:
+     - "6379:6379"
+
+  #rabbitmq:
+    #container_name: "rabbitmq"
+    #image: "rabbitmq:3"
+    #environment:
+    #  - RABBITMQ_NODENAME=rqnode@byte-rabbit
+    #  - RABBITMQ_DEFAULT_USER=bytewright
+    #  - RABBITMQ_DEFAULT_PASS=bytewright
+    #volumes:
+      #- /docker-data/rabbitmq:/var/lib/rabbitmq:rw
+    #ports:
+    # - "5672:5672"
+    # - "15672:15672"
+    
+#  webserver-nginx:
+#    container_name: "webserver-nginx"
+#    image: "nginx:latest"
+#    ports:
+#     - "80:80"
+#     - "443:443"
+#    volumes:
+#     - "./docker/nginx/webserver/conf-local/nginx:/etc/nginx/conf.d:ro"
