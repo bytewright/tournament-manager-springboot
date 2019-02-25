@@ -14,63 +14,55 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h3 class="display-3">This is an example Vue.js application developed with Spring Boot</h3>
+    <h3 class="display-3">Player Management</h3>
 
     <div id="contents-main">
-        <div id="contents">
-            <ul th:each="player : ${playerList}">
-                <li>
-                    <span th:text="${player.getFirstName()}"></span>
-                </li>
-            </ul>
-            <ul>
-                <li style="list-style-type:none" v-for="player in players">
-                    <player-card
-                            v-bind:player="player" v-bind:key="player.id">
-                    </player-card>
-                </li>
-            </ul>
+        <div id="contentAdd">
+            <!--/*@thymesVar id="player" type="org.bytewright.springbootvue.jpa.entities.Player"*/-->
+            <form th:action="@{'/manage/players/add'}" method="POST" th:object="${player}">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required="true" th:placeholder="*{name}" th:value="*{name}"
+                       th:field="*{name}"/>
+            </form>
+        </div>
+        <div id="contentList">
+            <h3>Spieler Liste</h3>
+            <table border="1px solid">
+                <thead>
+                <tr>
+                    <td>Vorname</td>
+                    <td>Nachname</td>
+                    <td>Spielstärke</td>
+                    <td>Wohnort</td>
+                    <td>DGoB</td>
+                    <td>Geschlecht</td>
+                    <td>Student</td>
+                    <td>Reduziert</td>
+                    <td>Edit</td>
+                    <td>Löschen</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="player : ${playerList}">
+                    <td><span th:text="${player.getFirstName()}"></span></td>
+                    <td><span th:text="${player.getLastName()}"></span></td>
+                    <td><span th:text="${player.getGoRank()}"></span></td>
+                    <td><span th:text="${player.getCity()}"></span></td>
+                    <td><span th:text="${player.getClubMember()}"></span></td>
+                    <td><span th:text="${player.getSex()}"></span></td>
+                    <td><span th:text="${player.getStudent()}"></span></td>
+                    <td><span th:text="${player.getReducedFee()}"></span></td>
+                    <td>
+                        <a th:href="@{'/manage/players/edit?id=' + ${player.getId()}}"> <span>Edit</span> </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/manage/players/delete?id=' + ${player.getId()}}"> <span>Löschen</span> </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-
-<!-- include Vue.js -->
-<!-- we include babel js so that we can write ES6 code in the browser
-     for a more production like setup it is recommended to setup a build process
-     to transpile and minify the code (such as using webpack)
- -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
-<script type="text/babel">
-    // player-card is now a Vue component that generates a 'card' showing a player
-    // It can be used
-    // declaratively like <player-card v-bind:player="someplayer">
-    Vue.component('player-card', {
-        props: ['player'],
-        template: `<div class="card">
-                    <div class="card-body">
-                        <h6 class="card-title">
-                            {{ player.name }}
-                        </h6>
-                        <p class="card-text">
-                            <div>
-                            {{ player.description }}
-                            </div>
-                        </p>
-                    </div>
-                </div>`
-    });
-
-    var app = new Vue({
-        el: '#contents',
-        data: {
-            players: [
-                {id: "1", name: "Lionel Messi", description: "Argentina's superstar"},
-                {id: "2", name: "Christiano Ronaldo", description: "Portugal top-ranked player"}
-            ]
-        }
-    });
-
-</script>
 </body>
 </html>
