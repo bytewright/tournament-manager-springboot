@@ -14,21 +14,12 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h3 class="display-3">This is an example Vue.js application developed with Spring Boot</h3>
-    <p class="lead">This file is rendered by a Spring built-in default controller for index.html (/) using
-        Spring's built-in
-        Thymeleaf templating engine.
-        Although we don't need it per se, we customized the information passed to this
-        view from thymeleaf by adding a controller method for "/" route to demonstrate how to pass information from
-        Thymeleaf to this page.
-        The combination of template engine and frontend framework like Vue can make this a powerful approach to build
-        more complex applications while leveraging the benefits of a framework like Vue.js.
-        You can use thymeleaf features too but this project focuses mainly on using Vue.js on the
-        frontend as the framework and makes minimal use of Thymeleaf.
-        Also we don't use any routing and multiple components in this example, so what you see is technically a
-        Single Page Application (SPA) without any routes configured.
-    </p>
-
+    <h2 class="display-2">Go Tournament Manager - GTM</h2>
+    <h3 class="display-3">Willkommen im Manager für das Tunier: <b th:text="${eventName}"></b></h3>
+    <ul>
+        <li th:href="players">Spieler Managment</li>
+        <li>Turnier Konfiguration</li>
+    </ul>
     <div id="contents-main">
         <div class="lead">
             <strong>Name of Event:</strong>
