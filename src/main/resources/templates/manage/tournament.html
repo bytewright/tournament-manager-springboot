@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -14,55 +14,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h3 class="display-3">Player Management</h3>
-
-    <div id="contents-main">
-        <div id="contentAdd">
-            <!--/*@thymesVar id="player" type="org.bytewright.springbootvue.jpa.entities.Player"*/-->
-            <form method="POST" th:action="@{'/manage/players/add'}" th:object="${player}">
-                <label for="name">Name:</label>
-                <input id="name" required="true" th:field="*{name}" th:placeholder="*{name}" th:value="*{name}"
-                       type="text"/>
-            </form>
-        </div>
-        <div id="contentList">
-            <h3>Spieler Liste</h3>
-            <table border="1px solid">
-                <thead>
-                <tr>
-                    <td>Vorname</td>
-                    <td>Nachname</td>
-                    <td>Spielstärke</td>
-                    <td>Wohnort</td>
-                    <td>DGoB</td>
-                    <td>Geschlecht</td>
-                    <td>Student</td>
-                    <td>Reduziert</td>
-                    <td>Edit</td>
-                    <td>Löschen</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="player : ${playerList}">
-                    <td><span th:text="${player.getFirstName()}"></span></td>
-                    <td><span th:text="${player.getLastName()}"></span></td>
-                    <td><span th:text="${player.getGoRank()}"></span></td>
-                    <td><span th:text="${player.getCity()}"></span></td>
-                    <td><span th:text="${player.getClubMember()}"></span></td>
-                    <td><span th:text="${player.getSex()}"></span></td>
-                    <td><span th:text="${player.getStudent()}"></span></td>
-                    <td><span th:text="${player.getReducedFee()}"></span></td>
-                    <td>
-                        <a th:href="@{'/manage/players/edit?id=' + ${player.getId()}}"> <span>Edit</span> </a>
-                    </td>
-                    <td>
-                        <a th:href="@{'/manage/players/delete?id=' + ${player.getId()}}"> <span>Löschen</span> </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <h3 class="display-3">Tournament Management</h3>
 </div>
 </body>
 </html>

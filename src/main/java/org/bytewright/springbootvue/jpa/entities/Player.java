@@ -25,7 +25,7 @@ public class Player {
   @Column(nullable = false)
   private String goRank;
   @Column
-  private String sex;
+  private String gender;
   @Column(name = "student")
   private Boolean isStudent;
   @Column(name = "reduced_fee")
@@ -90,12 +90,12 @@ public class Player {
     this.goRank = goRank;
   }
 
-  public String getSex() {
-    return sex;
+  public String getGender() {
+    return gender;
   }
 
-  public void setSex(String sex) {
-    this.sex = sex;
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 
   public Boolean getStudent() {

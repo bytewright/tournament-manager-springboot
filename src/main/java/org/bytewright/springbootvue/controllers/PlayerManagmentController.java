@@ -37,7 +37,7 @@ public class PlayerManagmentController {
     player.setAge(22);
     player.setCity("Hamburg");
     player.setGoRank("10k");
-    player.setSex("m");
+    player.setGender("m");
     player.setStudent(true);
     playerRepository.save(player);
     return "manage/players";

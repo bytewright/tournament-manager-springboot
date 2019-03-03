@@ -1,0 +1,1 @@
+create schema go_tournament_software;

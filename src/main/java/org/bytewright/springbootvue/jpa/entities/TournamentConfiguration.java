@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tournament_configuration")
@@ -15,15 +14,19 @@ public class TournamentConfiguration {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @Column(nullable = false)
-  private String tournamentName;
+  private String name;
   @Column(nullable = false)
-  private Integer tournamentRoundCount;
+  private Integer roundCount = 5;
   @Column(nullable = false)
   private String locationAddress;
   @Column(nullable = false)
-  private LocalDateTime tournamentStart;
+  private String pageUrl;
   @Column(nullable = false)
-  private LocalDateTime tournamentEnd;
+//  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+  private String startDate;
+  @Column(nullable = false)
+//  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+  private String endDate;
 
   public Long getId() {
     return id;
@@ -33,20 +36,20 @@ public class TournamentConfiguration {
     this.id = id;
   }
 
-  public String getTournamentName() {
-    return tournamentName;
+  public String getName() {
+    return name;
   }
 
-  public void setTournamentName(String tournamentName) {
-    this.tournamentName = tournamentName;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public Integer getTournamentRoundCount() {
-    return tournamentRoundCount;
+  public Integer getRoundCount() {
+    return roundCount;
   }
 
-  public void setTournamentRoundCount(Integer tournamentRoundCount) {
-    this.tournamentRoundCount = tournamentRoundCount;
+  public void setRoundCount(Integer roundCount) {
+    this.roundCount = roundCount;
   }
 
   public String getLocationAddress() {
@@ -57,19 +60,37 @@ public class TournamentConfiguration {
     this.locationAddress = locationAddress;
   }
 
-  public LocalDateTime getTournamentStart() {
-    return tournamentStart;
+  public String getStartDate() {
+    return startDate;
   }
 
-  public void setTournamentStart(LocalDateTime tournamentStart) {
-    this.tournamentStart = tournamentStart;
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
   }
 
-  public LocalDateTime getTournamentEnd() {
-    return tournamentEnd;
+  public String getEndDate() {
+    return endDate;
   }
 
-  public void setTournamentEnd(LocalDateTime tournamentEnd) {
-    this.tournamentEnd = tournamentEnd;
+  public void setEndDate(String endDate) {
+    this.endDate = endDate;
+  }
+
+  @Override
+  public String toString() {
+    return "TournamentConfiguration{" +
+            "id=" + id +
+            ", Name='" + name + '\'' +
+            ", Start=" + startDate +
+            ", End=" + endDate +
+            '}';
+  }
+
+  public String getPageUrl() {
+    return pageUrl;
+  }
+
+  public void setPageUrl(String pageUrl) {
+    this.pageUrl = pageUrl;
   }
 }
