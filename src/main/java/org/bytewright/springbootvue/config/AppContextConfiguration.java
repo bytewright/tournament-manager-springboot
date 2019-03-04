@@ -9,7 +9,7 @@ public class AppContextConfiguration {
   private static Logger LOGGER = LoggerFactory.getLogger(AppContextConfiguration.class.getSimpleName());
 
 //  @Bean
-//  public GTMConfiguration gtmConfiguration(TournamentConfigurationRepository repository) {
+//  public GTMConfiguration gtmConfiguration(TournamentsRepository repository) {
 //    return new GTMConfiguration(repository);
 //  }
 }

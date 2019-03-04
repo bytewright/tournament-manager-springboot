@@ -1,7 +1,7 @@
 package org.bytewright.springbootvue.controllers;
 
-import org.bytewright.springbootvue.jpa.entities.TournamentConfiguration;
-import org.bytewright.springbootvue.jpa.repositories.TournamentConfigurationRepository;
+import org.bytewright.springbootvue.jpa.entities.Tournament;
+import org.bytewright.springbootvue.jpa.repositories.TournamentsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ public class PageController {
   private static Logger LOGGER = LoggerFactory.getLogger(PageController.class.getSimpleName());
 
   @Autowired
-  private TournamentConfigurationRepository repository;
+  private TournamentsRepository repository;
 
   @GetMapping("/{tournamentId}/")
   public String getTournamentPage(@PathVariable Long tournamentId, Model model) {
 
-    TournamentConfiguration configuration = repository.getOne(tournamentId);
+    Tournament configuration = repository.getOne(tournamentId);
     LOGGER.info("Loading page for tournament: {}", configuration);
     model.addAttribute("config", configuration);
     return "tournamentPage";

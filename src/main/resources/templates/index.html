@@ -33,8 +33,8 @@
             <td th:text="${tournament.getStartDate()}">A Smoke Test</td>
             <td th:text="${tournament.getEndDate()}">A Smoke Test</td>
             <td th:text="${tournament.getLocationAddress()}">A Smoke Test</td>
-            <td><a th:href="${tournament.getPageUrl()}">Page</a></td>
-            <td><a th:href="${tournament.getPageUrl()+'/admin/'}"></a>Manage</a></td>
+            <td><a th:href="${tournament.getPageUrlPath()+'/'}">Page</a></td>
+            <td><a th:href="${tournament.getPageUrlPath()+'/admin/'}"></a>Manage</a></td>
         </tr>
         </tbody>
     </table>
@@ -46,7 +46,7 @@
             <input th:field="*{name}" type="text"/>
         </label></p>
         <p>Adresse: <input th:field="*{locationAddress}" type="text"/></p>
-        <p>URL: <input th:field="*{pageUrl}" type="text"/></p>
+        <p>URL: <input th:field="*{pageUrlPath}" type="text"/></p>
         <p>Start: <input th:field="*{startDate}" type="datetime-local"/></p>
         <p>Ende: <input th:field="*{endDate}" type="datetime-local"/></p>
         <button type="submit">Erstellen</button>
