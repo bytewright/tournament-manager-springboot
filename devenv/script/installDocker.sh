@@ -2,11 +2,17 @@
 set -eu
 
 echo "install docker start"
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update
-apt-cache policy docker-ce
-sudo apt-get install -y docker-ce
+#apt-cache policy docker-ce
+#sudo apt-get install -y docker-ce
+
+echo "install docker.io package"
+sudo apt-get install docker.io -y
+echo "install docker-compose package"
+sudo apt-get install docker-compose -y
+
 
 #enable docker REST api
 DOCKER_API_PORT=$1
@@ -16,16 +22,16 @@ sudo sed -r -i.bak "s|ExecStart=(.*)|& -H tcp://0.0.0.0:$DOCKER_API_PORT -H unix
 sudo systemctl daemon-reload
 sudo systemctl enable docker
 sudo systemctl start docker
-sudo curl -s -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+#sudo curl -s -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+#sudo chmod +x /usr/local/bin/docker-compose
 
 #sudo echo "PATH=${PATH}:/usr/local/bin/" >> /root/.bashrc
 sudo usermod -aG docker vagrant
 
 echo "creating persistent data dirs"
-mkdir /data/mysql/8/
-mkdir /data/rabbitmq/
-mkdir /data/redis/
-mkdir /data/mongodb/
+mkdir --verbose --parents --mode a=rwx /data/mysql/8/
+mkdir --verbose --parents --mode a=rwx /data/rabbitmq/
+mkdir --verbose --parents --mode a=rwx /data/redis/
+mkdir --verbose --parents --mode a=rwx /data/mongodb/
 
 echo "install docker done"

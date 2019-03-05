@@ -43,7 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "script/installDocker.sh", :args => [docker_api_port]
   config.vm.provision :shell, path: "script/postInstallDocker.sh"
   # Start containers
-  config.vm.provision :shell, inline: "apt-get upgrade", run: "always", :privileged => true
+  config.vm.provision :shell, inline: "apt-get upgrade -y", run: "always", :privileged => true
   config.vm.provision :shell, path: "script/startDocker.sh", run: "always", :privileged => true
   config.vm.post_up_message = <<'EOF'
 Start completed
