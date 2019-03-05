@@ -1,6 +1,9 @@
 package org.bytewright.springbootvue.jpa.entities;
 
+import org.bytewright.springbootvue.jpa.converter.DataProtectionConverter;
+
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,6 +15,7 @@ public class User extends BasicEntity {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
+    @Convert(converter = DataProtectionConverter.class)
     private String email;
 
     public String getEmail() {
@@ -36,5 +40,14 @@ public class User extends BasicEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

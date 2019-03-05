@@ -1,5 +1,7 @@
 package org.bytewright.springbootvue.jpa.entities;
 
+import org.bytewright.springbootvue.jpa.converter.DataProtectionConverter;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,12 +9,16 @@ import javax.persistence.*;
 public class Player extends BasicEntity {
 
     @Column(nullable = false)
+    @Convert(converter = DataProtectionConverter.class)
     private String firstName;
     @Column(nullable = false)
+    @Convert(converter = DataProtectionConverter.class)
     private String lastName;
     @Column
+    @Convert(converter = DataProtectionConverter.class)
     private String email;
     @Column
+    @Convert(converter = DataProtectionConverter.class)
     private String phone;
     @Column
     private Integer age = 18;
