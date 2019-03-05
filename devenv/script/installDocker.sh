@@ -22,4 +22,10 @@ sudo chmod +x /usr/local/bin/docker-compose
 #sudo echo "PATH=${PATH}:/usr/local/bin/" >> /root/.bashrc
 sudo usermod -aG docker vagrant
 
+echo "creating persistent data dirs"
+mkdir /data/mysql/8/
+mkdir /data/rabbitmq/
+mkdir /data/redis/
+mkdir /data/mongodb/
+
 echo "install docker done"

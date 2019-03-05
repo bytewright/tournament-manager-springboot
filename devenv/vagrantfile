@@ -5,49 +5,47 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # print "Vagrantfile is using Ruby version: " + RUBY_VERSION + "\n"
   # all boxes https://app.vagrantup.com/boxes/search
-  config.vm.box = "ubuntu/xenial64"
-  #config.vm.box_version = "1710.01"
-  
+  # https://app.vagrantup.com/boxes/search?provider=virtualbox&q=generic
+  config.vm.box = "generic/ubuntu1804"
+  config.vm.box_version = "1.9.4"
+
   config.vm.synced_folder ".", "/vagrant", type: "nfs"
-  
+
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
     vb.customize ["modifyvm", :id, "--cpus", "2"]
   end
-  
-  # NGINX webserver
-  #config.vm.network :forwarded_port, guest: 80, host: 80
-  #config.vm.network :forwarded_port, guest: 443, host: 443
-  
-  # MySQL server
+
+
+  # MySQL server & adminer
   config.vm.network :forwarded_port, guest: 3306, host: 3306
-  
+  config.vm.network :forwarded_port, guest: 33306, host: 33306
+
   # Redis
-  #config.vm.network :forwarded_port, guest: 6379, host: 6379
-  
-  # Adminer MySQL Interface
-  #config.vm.network :forwarded_port, guest: 8080, host: 8080
+  config.vm.network :forwarded_port, guest: 6379, host: 6379
+  # MongoDB
+  config.vm.network :forwarded_port, guest: 27017, host: 27017
 
   # Rabbitmq server
   #config.vm.network :forwarded_port, guest: 5672, host: 5672
   #config.vm.network :forwarded_port, guest: 15672, host: 15672
-  
-  # MongoDB
-  #config.vm.network :forwarded_port, guest: 27017, host: 27017
-  
+
+  # NGINX webserver
+  #config.vm.network :forwarded_port, guest: 80, host: 80
+  #config.vm.network :forwarded_port, guest: 443, host: 443
+
   # Docker REST API
   docker_api_port = 4243
   config.vm.network :forwarded_port, guest: docker_api_port, host: docker_api_port
-  
+
   config.vm.network :private_network, ip: "192.168.56.20"
 
   config.vm.provision :shell, path: "script/installDocker.sh", :args => [docker_api_port]
   config.vm.provision :shell, path: "script/postInstallDocker.sh"
   # Start containers
-  config.vm.provision :shell, path: "script/startDocker.sh", run: "always",:privileged => true
+  config.vm.provision :shell, inline: "apt-get upgrade", run: "always", :privileged => true
+  config.vm.provision :shell, path: "script/startDocker.sh", run: "always", :privileged => true
   config.vm.post_up_message = <<'EOF'
 Start completed
-
-Have a lot of fun!
 EOF
 end
