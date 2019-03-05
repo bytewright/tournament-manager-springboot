@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -41,11 +42,11 @@ public class GTMConfiguration {
     return dbConfig.getLocationAddress();
   }
 
-  public String getTournamentStart() {
+  public LocalDateTime getTournamentStart() {
     return dbConfig.getStartDate();
   }
 
-  public String getTournamentEnd() {
+  public LocalDateTime getTournamentEnd() {
     return dbConfig.getEndDate();
   }
 }

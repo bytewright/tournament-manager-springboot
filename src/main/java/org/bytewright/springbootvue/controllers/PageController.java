@@ -17,10 +17,10 @@ public class PageController {
   @Autowired
   private TournamentsRepository repository;
 
-  @GetMapping("/{tournamentId}/")
-  public String getTournamentPage(@PathVariable Long tournamentId, Model model) {
+  @GetMapping("/{tournamentName}/")
+  public String getTournamentPage(@PathVariable String tournamentName, Model model) {
 
-    Tournament configuration = repository.getOne(tournamentId);
+    Tournament configuration = repository.getByPageUrlPath(tournamentName);
     LOGGER.info("Loading page for tournament: {}", configuration);
     model.addAttribute("config", configuration);
     return "tournamentPage";

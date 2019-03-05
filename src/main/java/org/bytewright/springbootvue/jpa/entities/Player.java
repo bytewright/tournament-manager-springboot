@@ -2,7 +2,12 @@ package org.bytewright.springbootvue.jpa.entities;
 
 import org.bytewright.springbootvue.jpa.converter.DataProtectionConverter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "players")
@@ -36,7 +41,6 @@ public class Player extends BasicEntity {
     private Boolean isClubMember;
 
     @ManyToOne
-    @Column(nullable = false)
     private Tournament tournament;
 
     @PrePersist

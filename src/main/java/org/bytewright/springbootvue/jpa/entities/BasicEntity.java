@@ -3,7 +3,12 @@ package org.bytewright.springbootvue.jpa.entities;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -18,13 +23,13 @@ public abstract class BasicEntity {
     private Long version;
 
     @CreatedDate
-    @Column(name = "created_timestamp", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false, updatable = false)
+//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdDate;
 
     @LastModifiedDate
-    @Column(name = "modified_timestamp")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedDate;
 
     public LocalDateTime getCreatedDate() {

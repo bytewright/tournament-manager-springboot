@@ -1,6 +1,9 @@
 package org.bytewright.springbootvue.jpa.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,14 +20,13 @@ public class Tournament extends BasicEntity {
     private String locationAddress;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime startDate;
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime endDate;
 
     @ManyToOne
-    @Column(nullable = false)
     private User creator;
 
     public User getCreator() {

@@ -23,6 +23,7 @@ public class PlayerManagmentController {
     // this attribute will be available in the view index.html as a thymeleaf variable
     List<Player> players = playerRepository.findAll();
     model.addAttribute("playerList", players);
+    model.addAttribute("isEdit", false);
     // this just means render index.html from static/ area
     return "manage/players";
   }

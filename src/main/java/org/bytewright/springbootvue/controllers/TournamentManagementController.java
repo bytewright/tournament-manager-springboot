@@ -18,36 +18,35 @@ import java.time.LocalDateTime;
 
 @Controller
 public class TournamentManagementController {
-    private static Logger LOGGER = LoggerFactory.getLogger(TournamentManagementController.class.getSimpleName());
+  private static Logger LOGGER = LoggerFactory.getLogger(TournamentManagementController.class.getSimpleName());
 
-    @Autowired
-    private TournamentsRepository repository;
+  @Autowired
+  private TournamentsRepository repository;
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
+  @GetMapping("/{tournamentName}/admin")
+  public String getTournamentManagePage(@PathVariable String tournamentName, Model model) {
+    Tournament configuration = repository.getByPageUrlPath(tournamentName);
+    LOGGER.info("Loading admin page for tournament: {}", configuration);
+    model.addAttribute("config", configuration);
+    return "manage/tournament";
+  }
 
-    @GetMapping("/{tournamentId}/admin")
-    public String getTournamentManagePage(@PathVariable Long tournamentId, Model model) {
-        Tournament configuration = repository.getOne(tournamentId);
-        LOGGER.info("Loading page for tournament: {}", configuration);
-        model.addAttribute("config", configuration);
-        return "manage/tournament";
-    }
-
-    @PostMapping("/tournaments/create/")
-    public String createNewTournament(@ModelAttribute("newConfig") Tournament configuration) {
-        User creator = getCurrentUser();
-        LocalDateTime now = LocalDateTime.now();
-        configuration.setCreatedDate(now);
-        configuration.setModifiedDate(now);
-        configuration.setCreator(creator);
+  @PostMapping("/tournaments/create/")
+  public String createNewTournament(@ModelAttribute("newConfig") Tournament configuration) {
+    User creator = getCurrentUser();
+    LocalDateTime now = LocalDateTime.now();
+    configuration.setCreatedDate(now);
+    configuration.setModifiedDate(now);
+    configuration.setCreator(creator);
 //        configuration.setVersion(1L);
-        repository.saveAndFlush(configuration);
-        return "index";
-    }
+    repository.saveAndFlush(configuration);
+    return "index";
+  }
 
-    private User getCurrentUser() {
-        return userRepository.getUserByUsername("admin");
-    }
+  private User getCurrentUser() {
+    return userRepository.getUserByUsername("admin");
+  }
 }
