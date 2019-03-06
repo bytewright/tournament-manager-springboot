@@ -27,13 +27,13 @@ public class Tournament extends BasicEntity {
     private LocalDateTime endDate;
 
     @ManyToOne
-    private User creator;
+    private AppUser creator;
 
-    public User getCreator() {
+    public AppUser getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(AppUser creator) {
         this.creator = creator;
     }
 

@@ -1,7 +1,7 @@
 package org.bytewright.springbootvue.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.bytewright.springbootvue.jpa.entities.User;
+import org.bytewright.springbootvue.jpa.entities.AppUser;
 import org.bytewright.springbootvue.jpa.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +20,15 @@ public class UsersController {
 
     @PostMapping("/users/login")
     public String login(@ModelAttribute("username") String username, @ModelAttribute("password") String password) {
-        User user = userRepository.getUserByUsername(username);
-        if (user == null) {
-            user = userRepository.getUserByEmail(username);
+        AppUser appUser = userRepository.getUserByUsername(username);
+        if (appUser == null) {
+            appUser = userRepository.getUserByEmail(username);
         }
         String hexPassword = DigestUtils.sha512Hex(password);
-        if (user.getPassword().equals(hexPassword)) {
-            LOGGER.info("user logged in: {}", user.getUsername());
+        if (appUser.getPassword().equals(hexPassword)) {
+            LOGGER.info("appUser logged in: {}", appUser.getUsername());
         } else {
-            LOGGER.info("user logged in with wrong pw: {}", user.getUsername());
+            LOGGER.info("appUser logged in with wrong pw: {}", appUser.getUsername());
         }
         return "index";
     }
@@ -42,15 +42,15 @@ public class UsersController {
         } else if (userRepository.existsByUsername(username)) {
             LOGGER.warn("Username {} or email {} has already been taken");
         } else {
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(DigestUtils.sha512Hex(password));
-            user.setEmail(email);
+            AppUser appUser = new AppUser();
+            appUser.setUsername(username);
+            appUser.setPassword(DigestUtils.sha512Hex(password));
+            appUser.setEmail(email);
             LocalDateTime now = LocalDateTime.now();
-            user.setCreatedDate(now);
-            user.setModifiedDate(now);
-            userRepository.save(user);
-            LOGGER.info("Created user: {}", user);
+            appUser.setCreatedDate(now);
+            appUser.setModifiedDate(now);
+            userRepository.save(appUser);
+            LOGGER.info("Created appUser: {}", appUser);
         }
 
         return "index";

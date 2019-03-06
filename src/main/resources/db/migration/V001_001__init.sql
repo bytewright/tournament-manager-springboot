@@ -1,12 +1,14 @@
 CREATE TABLE users
 (
-  id         bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  version    bigint(20) unsigned NOT NULL,
-  created_at timestamp           NOT NULL,
-  updated_at timestamp           NOT NULL,
-  username   varchar(50)         NOT NULL,
-  password   varchar(50)         NOT NULL,
-  email      varchar(255)        NOT NULL,
+  id               bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  version          bigint(20) unsigned NOT NULL,
+  created_at       timestamp           NOT NULL,
+  updated_at       timestamp           NOT NULL,
+  username         varchar(50)         NOT NULL,
+  password         varchar(255)        NOT NULL,
+  email            varchar(255)        NOT NULL,
+  roles            text                NOT NULL,
+  disabled_account boolean default false,
   PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -17,7 +19,7 @@ CREATE TABLE tournaments
   version          bigint(20) unsigned NOT NULL,
   created_at       timestamp           NOT NULL,
   updated_at       timestamp           NOT NULL,
-  name             varchar(50)         NOT NULL,
+  name             varchar(255)        NOT NULL,
   round_count      int          DEFAULT 5,
   location_address varchar(255) DEFAULT NULL,
   page_url_path    varchar(255) DEFAULT NULL,
@@ -36,8 +38,8 @@ CREATE TABLE players
   version       bigint(20) unsigned NOT NULL,
   created_at    timestamp           NOT NULL,
   updated_at    timestamp           NOT NULL,
-  first_name    varchar(50)         NOT NULL,
-  last_name     varchar(50)  DEFAULT NULL,
+  first_name    varchar(255)        NOT NULL,
+  last_name     varchar(255) DEFAULT NULL,
   email         varchar(255) DEFAULT NULL,
   phone         varchar(255) DEFAULT NULL,
   gender        varchar(10)  DEFAULT NULL,

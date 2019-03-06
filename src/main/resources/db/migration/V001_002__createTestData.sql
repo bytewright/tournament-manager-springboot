@@ -1,8 +1,14 @@
 INSERT INTO users
-VALUES (0, 0, NOW(), NOW(), 'admin', 'admin', 'admin@admin.adm');
+VALUES (0, 0, NOW(), NOW(), 'admin', '$2a$08$7xqulWByb76zrZI2ygOdteEEdK3QtXkOIHGbnvfYVoMyyHWsP6lo6', 'admin@admin.adm',
+        'USER;ADMIN', false);
 
 INSERT INTO users
-VALUES (1, 0, NOW(), NOW(), 'user', 'user', 'user@user.ur');
+VALUES (1, 0, NOW(), NOW(), 'user1', '$2a$08$mVw76.4FzClKKQ5EP1Uq4OhZ/Hn9.MKKl6CZie2seKC6F/j4T.pPS', 'user1@user1.adm',
+        'USER', false);
+
+INSERT INTO users
+VALUES (2, 0, NOW(), NOW(), 'appUser', '$2a$08$3rC5aNqsAM0.qjRmzUHdVO/jQ2wtmerYSfH.Ywyz4RM7ydnfJC7wm',
+        'appUser@appUser.ur', '', true);
 
 INSERT INTO tournaments (ID, VERSION, CREATED_AT, UPDATED_AT, NAME, ROUND_COUNT, LOCATION_ADDRESS, PAGE_URL_PATH,
                          START_DATE, END_DATE, CREATOR_ID)

@@ -1,7 +1,7 @@
 package org.bytewright.springbootvue.controllers;
 
+import org.bytewright.springbootvue.jpa.entities.AppUser;
 import org.bytewright.springbootvue.jpa.entities.Tournament;
-import org.bytewright.springbootvue.jpa.entities.User;
 import org.bytewright.springbootvue.jpa.repositories.TournamentsRepository;
 import org.bytewright.springbootvue.jpa.repositories.UserRepository;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class TournamentManagementController {
 
   @PostMapping("/tournaments/create/")
   public String createNewTournament(@ModelAttribute("newConfig") Tournament configuration) {
-    User creator = getCurrentUser();
+      AppUser creator = getCurrentUser();
     LocalDateTime now = LocalDateTime.now();
     configuration.setCreatedDate(now);
     configuration.setModifiedDate(now);
@@ -46,7 +46,7 @@ public class TournamentManagementController {
     return "index";
   }
 
-  private User getCurrentUser() {
+    private AppUser getCurrentUser() {
     return userRepository.getUserByUsername("admin");
   }
 }
