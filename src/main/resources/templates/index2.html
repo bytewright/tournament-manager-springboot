@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <title>Vue.js Pet Depot</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/app.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id="app">
+    <header>
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <h1 v-text="sitename"></h1>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div v-for="tournament in tournaments">
+            <p v-text="tournament.name"></p>
+            <p v-text="tournament.startDate"></p>
+            <p v-text="tournament.endDate"></p>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <figure>
+                    <img v-bind:src="product.image">
+                </figure>
+            </div>
+            <div class="col-md-6 col-md-offset-2 description">
+                <h1 v-text="product.title"></h1>
+                <p v-html="product.description"></p>
+                <p class="price">
+                    {{product.price | formatPrice}}
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+<script type="text/javascript">
+    var APP_LOG_LIFECYCLE_EVENTS = true;
+    var webstore = new Vue({
+        el: '#app',
+        data: {
+            sitename: "Vue.js Pet Depot",
+            product: {
+                id: 1001,
+                title: "Cat Food, 25lb bag",
+                description: "A 25 pound bag of <em>irresistible</em>," + " organic goodness for your cat.",
+                price: 2000,
+                image: "assets/images/product-fullsize.png"
+            },
+            tournaments: []
+        },
+        filters: {
+            formatPrice(price) {	//#B
+                if (!parseInt(price)) {
+                    return "";
+                }	//#C
+                if (price > 99999) {	//#D
+                    var priceString = (price / 100).toFixed(2);	//#E
+                    var priceArray = priceString.split("").reverse();	//#F
+                    var index = 3;	//#F
+                    while (priceArray.length > index + 3) {	//#F
+                        priceArray.splice(index + 3, 0, ",");	//#F
+                        index += 4;	//#F
+                    }	//#F
+                    return "$" + priceArray.reverse().join("");	//#G
+                } else {
+                    return "$" + (price / 100).toFixed(2);	//#H
+                }
+            }
+
+        },	//#B
+        created: function () {	//#C
+            if (APP_LOG_LIFECYCLE_EVENTS) {	//#C
+                console.log("created");	//#C
+
+                // url (required), options (optional)
+                fetch('https://localhost:8443/tournaments/list/', {
+                    method: 'get'
+                }).then(function (json) {
+                    return json.json();
+                }).then(function (json) {
+                    this.tournaments=json["tournaments"];
+                    console.log(this.tournaments);
+                    //console.log(json["tournaments"][0]);
+                }).catch(function (err) {
+                    // Error :(
+                    console.log("error: "+err)
+                });
+            }	//#C
+        },	//#H
+        destroyed: function () { 	//#I
+            if (APP_LOG_LIFECYCLE_EVENTS) { 	//#I
+                console.log("destroyed"); 	//#I
+            } 	//#I
+        }	//#I
+    });
+
+</script>
+</body>
+
+</html>

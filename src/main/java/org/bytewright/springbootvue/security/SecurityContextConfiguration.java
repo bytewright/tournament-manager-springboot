@@ -1,26 +1,17 @@
 package org.bytewright.springbootvue.security;
 
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.realm.Realm;
-import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
-import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * https://stackoverflow.com/questions/41410446/springboot-apache-shiro-java-config
  * <p>
  * TODO Shiro is only available for spring boot 1.x
  */
-@Configuration
+//@Configuration
 public class SecurityContextConfiguration {
-  private static Logger LOGGER = LoggerFactory.getLogger(SecurityContextConfiguration.class.getSimpleName());
-
+    private static Logger LOGGER = LoggerFactory.getLogger(SecurityContextConfiguration.class.getSimpleName());
+/*
   @Bean
   public CredentialsMatcher credentialsMatcher() {
     return new HashedCredentialsMatcher() {
@@ -54,5 +45,5 @@ public class SecurityContextConfiguration {
     LOGGER.info("Adding Shiro security filter");
     return chainDefinition;
   }
-
+*/
 }

@@ -1,4 +1,4 @@
-package org.bytewright.springbootvue.security;
+/*package org.bytewright.springbootvue.security;
 
 import com.google.common.collect.ImmutableSet;
 import org.apache.shiro.authc.AuthenticationException;
@@ -32,3 +32,4 @@ public class ShiroRealm extends AuthorizingRealm {
     return new SimpleAuthenticationInfo("myPrincipal", "mycreds", "myGoRealmName");
   }
 }
+*/

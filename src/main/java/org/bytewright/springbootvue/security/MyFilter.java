@@ -1,4 +1,4 @@
-package org.bytewright.springbootvue.security;
+/*package org.bytewright.springbootvue.security;
 
 import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
-@Component
+//@Component
 public class MyFilter extends RolesAuthorizationFilter {
   private static Logger LOGGER = LoggerFactory.getLogger(MyFilter.class.getSimpleName());
 
@@ -18,4 +18,4 @@ public class MyFilter extends RolesAuthorizationFilter {
     LOGGER.info("checking role");
     return super.isAccessAllowed(request, response, mappedValue);
   }
-}
+}*/

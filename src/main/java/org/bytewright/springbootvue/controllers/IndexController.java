@@ -21,6 +21,6 @@ public class IndexController {
         model.addAttribute("tournamentList", repository.findAll());
         model.addAttribute("newConfig", new Tournament());
 
-        return "index";
+        return "index2";
     }
 }
