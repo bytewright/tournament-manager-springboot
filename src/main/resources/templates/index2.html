@@ -19,26 +19,19 @@
         </div>
     </header>
     <main>
-        <div v-for="tournament in tournaments">
+        <div class="row" v-for="tournament in tournaments">
             <p v-text="tournament.name"></p>
             <p v-text="tournament.startDate"></p>
             <p v-text="tournament.endDate"></p>
-            <hr />
+            <hr/>
         </div>
-        <div class="row">
-            <div class="col-md-2 col-md-offset-1">
-                <figure>
-                    <img v-bind:src="product.image">
-                </figure>
-            </div>
-            <div class="col-md-6 col-md-offset-2 description">
-                <h1 v-text="product.title"></h1>
-                <p v-html="product.description"></p>
-                <p class="price">
-                    {{product.price | formatPrice}}
-                </p>
-            </div>
+        <div class="row" v-for="product in products">
+            <p v-text="product.title"></p>
+            <p v-text="product.description"></p>
+            <p v-text="product.price"></p>
+            <hr/>
         </div>
+        <h1>all tournaments listed</h1>
 
     </main>
 
@@ -56,52 +49,24 @@
                 price: 2000,
                 image: "assets/images/product-fullsize.png"
             },
-            tournaments: []
+            tournaments: [],
+            products: []
         },
-        filters: {
-            formatPrice(price) {	//#B
-                if (!parseInt(price)) {
-                    return "";
-                }	//#C
-                if (price > 99999) {	//#D
-                    var priceString = (price / 100).toFixed(2);	//#E
-                    var priceArray = priceString.split("").reverse();	//#F
-                    var index = 3;	//#F
-                    while (priceArray.length > index + 3) {	//#F
-                        priceArray.splice(index + 3, 0, ",");	//#F
-                        index += 4;	//#F
-                    }	//#F
-                    return "$" + priceArray.reverse().join("");	//#G
-                } else {
-                    return "$" + (price / 100).toFixed(2);	//#H
-                }
-            }
-
-        },	//#B
-        created: function () {	//#C
-            if (APP_LOG_LIFECYCLE_EVENTS) {	//#C
-                console.log("created");	//#C
-
-                // url (required), options (optional)
-                fetch('https://localhost:8443/tournaments/list/', {
-                    method: 'get'
-                }).then(function (json) {
-                    return json.json();
-                }).then(function (json) {
-                    this.tournaments=json["tournaments"];
-                    console.log(this.tournaments);
-                    //console.log(json["tournaments"][0]);
-                }).catch(function (err) {
-                    // Error :(
-                    console.log("error: "+err)
-                });
-            }	//#C
-        },	//#H
-        destroyed: function () { 	//#I
-            if (APP_LOG_LIFECYCLE_EVENTS) { 	//#I
-                console.log("destroyed"); 	//#I
-            } 	//#I
-        }	//#I
+        created: function () {
+            this.products.push(this.product);
+            console.log("created");
+            const that = this;
+            fetch('https://localhost:8443/tournaments/list/', {
+                method: 'get'
+            }).then(function (jsonRaw) {
+                return jsonRaw.json();
+            }).then(function (json) {
+                that.tournaments = json["tournaments"];
+                console.log(that.tournaments);
+            }).catch(function (err) {
+                console.log("error: " + err)
+            });
+        }
     });
 
 </script>
