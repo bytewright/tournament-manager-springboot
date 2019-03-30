@@ -1,61 +1,79 @@
-<!doctype html>
-<html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
 
-    <!-- Include Bootstrap -->
+<head>
+    <title>Vue.js Pet Depot</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/app.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <title>Go Tournament Manager</title>
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <meta charset="UTF-8">
 </head>
 <body>
-<div class="container-fluid">
-    <h2 class="display-2">Go Tournament Manager - GTM</h2>
-    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-    <form method="post" th:action="@{/logout}">
-        <input type="submit" value="Sign Out"/>
-    </form>
-    <a th:href="@{/login}">login</a>
-    <table border="1px solid">
-        <thead>
-        <tr>
-            <td>Tuniername</td>
-            <td>Startdatum</td>
-            <td>Enddatum</td>
-            <td>Ort</td>
-            <td>Page</td>
-            <td>Manage</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="tournament : ${tournamentList}">
-            <td th:text="${tournament.getName()}">A Smoke Test</td>
-            <td th:text="${tournament.getStartDate()}">A Smoke Test</td>
-            <td th:text="${tournament.getEndDate()}">A Smoke Test</td>
-            <td th:text="${tournament.getLocationAddress()}">A Smoke Test</td>
-            <td><a th:href="${tournament.getPageUrlPath()+'/'}">Page</a></td>
-            <td><a th:href="${tournament.getPageUrlPath()+'/admin/'}">Manage</a></td>
-        </tr>
-        </tbody>
-    </table>
+<div id="app">
+    <header>
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <h1 v-text="sitename"></h1>
+            </div>
+        </div>
+    </header>
+    <main>
+
+        <img height="300" width="400" alt="Map placeholder" src="map.png">
+        <h1>Tournament List:</h1>
+        <div v-for="tournament in tournaments">
+            <table border="1px solid black">
+                <thead>Tournament</thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <img src="img.png" alt="placeholder img">
+                    </td>
+                    <td>
+                        <div class="tournament-cell">
+                            Name: <p v-text="tournament.name"></p>
+                            Start: <p v-text="tournament.startDate"></p>
+                            Ende: <p v-text="tournament.endDate"></p>
+                            Tage: ---
+                            Addresse <p v-text="tournament.address"></p>
+                            Runden: <p v-text="tournament.roundCount"></p>
+                            link: <p v-text="tournament.pageUrlPath"></p>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <hr/>
+        </div>
+        <h1>all tournaments listed</h1>
+    </main>
 </div>
-<div>
-    <h2>Neues Tounier erstellen</h2>
-    <form method="post" th:action="@{/tournaments/create/}" th:object="${newConfig}">
-        <p>Name: <label> label
-            <input th:field="*{name}" type="text"/>
-        </label></p>
-        <p>Adresse: <input th:field="*{locationAddress}" type="text"/></p>
-        <p>URL: <input th:field="*{pageUrlPath}" type="text"/></p>
-        <p>Start: <input th:field="*{startDate}" type="datetime-local"/></p>
-        <p>Ende: <input th:field="*{endDate}" type="datetime-local"/></p>
-        <button type="submit">Erstellen</button>
-    </form>
-</div>
+<script type="text/javascript">
+    const url = "[[${tournamentListUrl}]]";
+    let webstore = new Vue({
+        el: '#app',
+        data: {
+            sitename: "Vue.js tournament organisator",
+            tournaments: []
+        },
+        created: function () {
+            console.log("created, connecting to: " + url);
+            const that = this;
+            fetch(url, {
+                method: 'get'
+            }).then(function (jsonRaw) {
+                return jsonRaw.json();
+            }).then(function (json) {
+                that.tournaments = json["tournaments"];
+                console.log(that.tournaments);
+            }).catch(function (err) {
+                console.log("error: " + err)
+            });
+        }
+    });
+
+</script>
 </body>
+
 </html>

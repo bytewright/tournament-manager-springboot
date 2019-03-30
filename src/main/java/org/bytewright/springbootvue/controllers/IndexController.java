@@ -20,7 +20,8 @@ public class IndexController {
 
         model.addAttribute("tournamentList", repository.findAll());
         model.addAttribute("newConfig", new Tournament());
+        model.addAttribute("tournamentListUrl", "https://localhost:8443/tournaments/list/");
 
-        return "index2";
+        return "index";
     }
 }
